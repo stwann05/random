@@ -140,14 +140,32 @@
 
     <div id="respon" class=""></div>
 
+    <p id="ajakan" style="display: none; margin-top: 20px">
+      Kalo kamu mau cerita, klik tombol di bawah ini yaa 💬
+    </p>
+
+    <button
+      id="tombolCerita"
+      style="
+        display: none;
+        background-color: #00c6ff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+      "
+    >
+      Coba Klik Aku!
+    </button>
     <script>
       function jawab(perasaan) {
         const respon = document.getElementById("respon");
+        const ajakan = document.getElementById("ajakan");
+        const tombol = document.getElementById("tombolCerita");
 
-        // Reset animasi biar bisa diputar ulang
         respon.classList.remove("fade");
 
-        // Set isi respons berdasarkan pilihan
         if (perasaan === "senang") {
           respon.innerHTML =
             "Yayy! Ikut senang dengarnya 😍 Jangan lupa senyum terus yaa, biar makin cakep!";
@@ -159,11 +177,20 @@
             "Hari ini mungkin berat, tapi kamu hebat banget udah sampai sini. Semangat terus ya! 💪✨";
         }
 
-        // Paksa reflow agar animasi bisa diputar ulang
+        // Reset dan jalankan animasi
         void respon.offsetWidth;
-
-        // Tambah kembali animasi
         respon.classList.add("fade");
+
+        // Tampilkan ajakan dan tombol
+        ajakan.style.display = "block";
+        tombol.style.display = "inline-block";
+
+        // (Opsional) Tambahkan link ke tombol
+        tombol.onclick = function () {
+          const linkWA =
+            "https://wa.me/6285962687860?text=Hai%20Ivan%2C%20apakah%20kamu%20mau%20mendengarkan%20ceritaku%20hari%20ini%3F";
+          window.open(linkWA, "_blank");
+        };
       }
     </script>
   </body>
