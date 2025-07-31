@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hai, Gimana Harimu? ☀️</title>
+    <style>
+      body {
+        background: linear-gradient(to right, #d0f0ff, #ffffff);
+        font-family: "Segoe UI", sans-serif;
+        text-align: center;
+        padding: 60px 20px;
+        color: #333;
+        overflow-x: hidden;
+      }
+
+      /* Animasi dasar */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeSlideIn 0.8s ease forwards;
+      }
+
+      .fade-delay-1 {
+        animation-delay: 0.3s;
+      }
+
+      .fade-delay-2 {
+        animation-delay: 0.6s;
+      }
+
+      .fade-delay-3 {
+        animation-delay: 0.9s;
+      }
+
+      .fade-delay-4 {
+        animation-delay: 1.2s;
+      }
+
+      @keyframes fadeSlideIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h1 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 1.2em;
+        margin-bottom: 30px;
+      }
+
+      button {
+        padding: 12px 25px;
+        margin: 10px;
+        font-size: 1em;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        background-color: #6a82fb;
+        color: white;
+        transition: background 0.3s;
+      }
+
+      button:hover {
+        background-color: #5a6fe8;
+      }
+
+      #respon {
+        font-size: 1.3em;
+        margin-top: 30px;
+        color: #444;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.6s ease;
+      }
+
+      #respon.fade {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2em;
+        }
+
+        p {
+          font-size: 1em;
+        }
+
+        button {
+          width: 100%;
+          max-width: 300px;
+          margin: 10px auto;
+          font-size: 1em;
+        }
+
+        #respon {
+          font-size: 1.1em;
+          padding: 0 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 40px 15px;
+        }
+
+        h1 {
+          font-size: 1.6em;
+        }
+
+        button {
+          font-size: 0.95em;
+        }
+
+        p {
+          font-size: 0.95em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="fade-in fade-delay-1">Hai Vita Setiyani! 😊</h1>
+    <p class="fade-in fade-delay-2">Gimana harimu hari ini?</p>
+
+    <button onclick="jawab('senang')" class="fade-in fade-delay-3">
+      Senang! 😄
+    </button>
+    <button onclick="jawab('biasa')" class="fade-in fade-delay-3">
+      Biasa aja 😐
+    </button>
+    <button onclick="jawab('sedih')" class="fade-in fade-delay-3">
+      Kurang baik 😔
+    </button>
+
+    <div id="respon" class=""></div>
+
+    <script>
+      function jawab(perasaan) {
+        const respon = document.getElementById("respon");
+
+        // Reset animasi biar bisa diputar ulang
+        respon.classList.remove("fade");
+
+        // Set isi respons berdasarkan pilihan
+        if (perasaan === "senang") {
+          respon.innerHTML =
+            "Yayy! Ikut senang dengarnya 😍 Jangan lupa senyum terus yaa, biar makin cakep!";
+        } else if (perasaan === "biasa") {
+          respon.innerHTML =
+            "Hmm... kayak mie tanpa kuah ya 😅 Semangat! Mungkin nanti ada kejutan seru~ 🎁";
+        } else {
+          respon.innerHTML =
+            "Hari ini mungkin berat, tapi kamu hebat banget udah sampai sini. Semangat terus ya! 💪✨";
+        }
+
+        // Paksa reflow agar animasi bisa diputar ulang
+        void respon.offsetWidth;
+
+        // Tambah kembali animasi
+        respon.classList.add("fade");
+      }
+    </script>
+  </body>
+</html>
