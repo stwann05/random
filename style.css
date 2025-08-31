@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Background gradasi */
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 40px 30px;
+  border-radius: 20px;
+  text-align: center;
+  color: #fff;
+  backdrop-filter: blur(8px); /* efek kaca */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 90%;
+}
+
+.container h1 {
+  margin-bottom: 15px;
+  font-size: 26px;
+}
+
+.container p {
+  margin-bottom: 25px;
+  font-size: 18px;
+}
+
+.button {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
+}
+
+.button:hover {
+  background: linear-gradient(135deg, #0072ff, #00c6ff);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 114, 255, 0.6);
+}
