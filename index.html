@@ -1,14 +1,502 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Cek Umur</title>
-  </head>
-  <body>
-    <h1>Hai, Vita Setiyani 👋🏻</h1>
-    <p>Klik tombol di bawah ini ya 😁</p>
-    <button onclick="hitungUmur()">Coba Tebak Umur 🎂</button>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Selamat Ulang Tahun 🎉</title>
+<style>
+  :root{
+    --bg:#0f1724;
+    --card:#0b1220;
+    --accent:#ff6b6b;
+    --accent2:#ffd166;
+    --glass: rgba(255,255,255,0.06);
+  }
+  html,body{
+    height:100%;
+    margin:0;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: radial-gradient(1200px 600px at 10% 10%, #071023 0%, transparent 10%),
+                radial-gradient(900px 500px at 90% 90%, #081226 0%, transparent 15%),
+                var(--bg);
+    color: #e6eef8;
+    -webkit-font-smoothing:antialiased;
+  }
 
-    <script></script>
-  </body>
+  .stage{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px;
+    box-sizing:border-box;
+  }
+
+  .card{
+    width:920px;
+    max-width:96%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:20px;
+    padding:28px;
+    box-shadow: 0 12px 40px rgba(2,6,23,0.6);
+    position:relative;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.04);
+    display:grid;
+    grid-template-columns: 1fr 380px;
+    gap:20px;
+  }
+
+  /* left content */
+  .left{
+    padding:12px 8px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+
+  h1{
+    margin:0;
+    font-size:38px;
+    line-height:1;
+    letter-spacing:-0.5px;
+  }
+  p.lead{
+    margin:0;
+    opacity:0.9;
+    color:#cfe7ff;
+  }
+
+  .cake-wrap{
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+
+  .cake{
+    width:200px;
+    height:200px;
+    position:relative;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+  }
+
+  /* simple cake with layers using boxes */
+  .cake .layer{
+    width:160px;
+    border-radius:16px;
+    background:linear-gradient(180deg,#ffdede,#ffb6b6);
+    box-shadow: inset 0 -6px 20px rgba(0,0,0,0.15);
+    margin-bottom:10px;
+    padding:10px;
+    display:flex;
+    justify-content:center;
+  }
+  .cake .layer.two{
+    width:140px;
+    background:linear-gradient(180deg,#ffe9b1,#ffd166);
+  }
+  .candle{
+    position:absolute;
+    top:20px;
+    display:flex;
+    gap:6px;
+    align-items:flex-start;
+  }
+  .candle .stick{
+    width:8px;
+    height:34px;
+    background:#fff7ea;
+    border-radius:4px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.25);
+  }
+  .flame{
+    width:16px;
+    height:16px;
+    border-radius:50% 50% 50% 20%;
+    transform: translateY(-50%) rotate(-20deg);
+    background: radial-gradient(circle at 40% 30%, #fff8b5 0%, #ffcf51 30%, #ff6b6b 60%);
+    box-shadow: 0 6px 10px rgba(255,107,107,0.25);
+    animation: flicker 900ms infinite;
+  }
+  @keyframes flicker{
+    0%{ transform: translateY(-50%) rotate(-19deg) scale(1); opacity:1;}
+    50%{ transform: translateY(-48%) rotate(-21deg) scale(0.98); opacity:0.95;}
+    100%{ transform: translateY(-50%) rotate(-19deg) scale(1); opacity:1;}
+  }
+
+  /* right panel: controls + balloons */
+  .right{
+    padding:12px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .controls{
+    background:var(--glass);
+    border-radius:12px;
+    padding:12px;
+    border:1px solid rgba(255,255,255,0.03);
+  }
+
+  .btn{
+    display:inline-flex;
+    gap:8px;
+    align-items:center;
+    padding:10px 14px;
+    border-radius:10px;
+    cursor:pointer;
+    border: none;
+    font-weight:600;
+    background:linear-gradient(90deg,var(--accent),#ff8a8a);
+    color:#111;
+    box-shadow:0 6px 18px rgba(255,107,107,0.12);
+  }
+  .btn.secondary{
+    background:linear-gradient(90deg,#7bd389,#47b881);
+    color:#042b12;
+  }
+
+  .balloons{
+    position:relative;
+    height:220px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+  }
+
+  .balloon{
+    width:60px;
+    height:80px;
+    border-radius:60% 60% 50% 50%;
+    display:block;
+    position:relative;
+    transform-origin:center bottom;
+    animation: float 4s ease-in-out infinite;
+  }
+  .balloon::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:-28px;
+    width:2px;
+    height:28px;
+    background:rgba(255,255,255,0.2);
+  }
+  .balloon.one{ background: linear-gradient(180deg,#ff8a8a,#ff6b6b); animation-delay:0s; }
+  .balloon.two{ background: linear-gradient(180deg,#ffd166,#ffb769); animation-delay:0.5s; transform: scale(0.9); }
+  .balloon.three{ background: linear-gradient(180deg,#6bd3ff,#3aa8ff); animation-delay:1s; transform: scale(1.05); }
+
+  @keyframes float{
+    0%{ transform: translateY(0) rotate(-2deg) }
+    50%{ transform: translateY(-18px) rotate(4deg) }
+    100%{ transform: translateY(0) rotate(-2deg) }
+  }
+
+  /* confetti canvas covers whole stage */
+  canvas.confetti {
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:999;
+  }
+
+  /* footer message */
+  .footer{
+    margin-top:auto;
+    font-size:13px;
+    opacity:0.8;
+    color:#bcd6ff;
+  }
+
+  /* responsive */
+  @media (max-width:900px){
+    .card{ grid-template-columns: 1fr; }
+    .cake{ margin:0 auto; }
+  }
+</style>
+</head>
+<body>
+  <canvas class="confetti" id="confetti"></canvas>
+  <div class="stage">
+    <div class="card" role="main" aria-label="Kartu ucapan ulang tahun">
+      <div class="left">
+        <div>
+          <h1 id="greet">Selamat Ulang Tahun!</h1>
+          <p class="lead" id="sub">Semoga harimu dipenuhi kebahagiaan, tawa, dan kopi panas ☕️</p>
+        </div>
+
+        <div class="cake-wrap" aria-hidden="true">
+          <div class="cake" id="cake">
+            <div class="candle" id="candles">
+              <div class="stick"></div>
+              <div class="stick"></div>
+              <div class="stick"></div>
+              <div class="flame" id="flame"></div>
+            </div>
+
+            <div class="layer one" style="z-index:3"></div>
+            <div class="layer two" style="z-index:2"></div>
+            <div class="layer one" style="z-index:1"></div>
+          </div>
+
+          <div>
+            <p style="margin:0 0 6px 0; font-weight:700;">Untuk: <span id="nameTarget">Teman</span></p>
+            <p style="margin:0; font-size:14px; opacity:0.9;">Klik tombol "Rayakan!" untuk kembang api & confetti.</p>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:8px; align-items:center;">
+          <button class="btn" id="celebrateBtn" aria-pressed="false">🎉 Rayakan!</button>
+          <button class="btn secondary" id="wishBtn" aria-pressed="false">✍️ Tulis Pesan</button>
+          <input id="nameInput" type="text" placeholder="Masukkan nama..." style="margin-left:auto; padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:inherit;" />
+        </div>
+
+        <div class="footer" id="personalMessage">
+          Ingin sesuatu yang spesial? Ubah nama di kanan atas.
+        </div>
+      </div>
+
+      <aside class="right" aria-hidden="false">
+        <div class="controls" role="region" aria-label="Kontrol">
+          <div style="display:flex; gap:8px; align-items:center; justify-content:space-between;">
+            <div>
+              <strong>Efek</strong>
+              <div style="font-size:13px; opacity:0.85;">Confetti & kembang api</div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button class="btn" id="confettiToggle">Confetti</button>
+              <button class="btn secondary" id="fireworkToggle">Kembang Api</button>
+            </div>
+          </div>
+          <hr style="opacity:0.06; margin:12px 0;">
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div style="flex:1">
+              <strong>Musik</strong>
+              <div style="font-size:13px; opacity:0.8;">Opsional — klik play</div>
+            </div>
+            <audio id="happyAudio" src="" preload="none"></audio>
+            <button class="btn" id="playMusic">▶️ Play</button>
+          </div>
+        </div>
+
+        <div class="balloons" aria-hidden="true">
+          <div class="balloon one"></div>
+          <div class="balloon two"></div>
+          <div class="balloon three"></div>
+        </div>
+
+        <div style="font-size:13px; opacity:0.9;">
+          Tip: Tekan <kbd>R</kbd> untuk ulangi efek, atau klik tombol "Rayakan!".
+        </div>
+      </aside>
+    </div>
+  </div>
+
+<script>
+/* ---------- Simple confetti implementation ---------- */
+const canvas = document.getElementById('confetti');
+const ctx = canvas.getContext('2d');
+let W = canvas.width = innerWidth;
+let H = canvas.height = innerHeight;
+let confettiPieces = [];
+let confettiActive = false;
+
+function onResize(){
+  W = canvas.width = innerWidth;
+  H = canvas.height = innerHeight;
+}
+addEventListener('resize', onResize);
+
+class Confetti {
+  constructor(){
+    this.x = Math.random() * W;
+    this.y = Math.random() * -H * 0.5;
+    this.w = 8 + Math.random()*10;
+    this.h = 6 + Math.random()*8;
+    this.vx = -2 + Math.random()*4;
+    this.vy = 2 + Math.random()*4;
+    this.rot = Math.random()*360;
+    this.velRot = -6 + Math.random()*12;
+    this.color = ['#ff6b6b','#ffd166','#7bd389','#6bd3ff','#c6a0ff'][Math.floor(Math.random()*5)];
+    this.opacity = 0.9;
+  }
+  update(){
+    this.x += this.vx;
+    this.y += this.vy;
+    this.rot += this.velRot;
+    if(this.y > H + 40) {
+      this.y = -20;
+      this.x = Math.random()*W;
+    }
+  }
+  draw(){
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rot * Math.PI/180);
+    ctx.fillStyle = this.color;
+    ctx.globalAlpha = this.opacity;
+    ctx.fillRect(-this.w/2, -this.h/2, this.w, this.h);
+    ctx.restore();
+  }
+}
+
+function spawnConfetti(count = 80){
+  confettiPieces = [];
+  for(let i=0;i<count;i++) confettiPieces.push(new Confetti());
+  confettiActive = true;
+  setTimeout(()=> confettiActive = false, 6000);
+}
+
+function confettiLoop(){
+  ctx.clearRect(0,0,W,H);
+  if(confettiPieces.length){
+    confettiPieces.forEach(p => {
+      p.update();
+      p.draw();
+    });
+  }
+  requestAnimationFrame(confettiLoop);
+}
+confettiLoop();
+
+/* ---------- simple firework (particle) effect ---------- */
+const fireworks = [];
+function spawnFirework(x = W*0.7, y = H*0.2){
+  const count = 28;
+  for(let i=0;i<count;i++){
+    fireworks.push({
+      x, y,
+      vx: (Math.random()-0.5) * 6,
+      vy: (Math.random()-0.7) * 6,
+      life: 40 + Math.random()*40,
+      color: ['#ffd166','#ff6b6b','#c6a0ff','#6bd3ff'][Math.floor(Math.random()*4)]
+    });
+  }
+  setTimeout(()=>{}, 4000);
+}
+
+function drawFireworks(){
+  for(let i = fireworks.length-1; i>=0; i--){
+    const p = fireworks[i];
+    p.x += p.vx; p.y += p.vy;
+    p.vy += 0.08; // gravity
+    p.life--;
+    ctx.beginPath();
+    ctx.fillStyle = p.color;
+    ctx.globalAlpha = Math.max(0,p.life/70);
+    ctx.arc(p.x, p.y, 2.5, 0, Math.PI*2);
+    ctx.fill();
+    if(p.life <= 0) fireworks.splice(i,1);
+  }
+  ctx.globalAlpha = 1;
+}
+
+/* ---------- wire up UI ---------- */
+const celebrateBtn = document.getElementById('celebrateBtn');
+const confettiToggle = document.getElementById('confettiToggle');
+const fireworkToggle = document.getElementById('fireworkToggle');
+const playMusic = document.getElementById('playMusic');
+const happyAudio = document.getElementById('happyAudio');
+const nameInput = document.getElementById('nameInput');
+const nameTarget = document.getElementById('nameTarget');
+
+let confettiEnabled = true;
+let fireworkEnabled = true;
+
+// optional: simple embedded short melody as data URI (small beep loop) - left blank so user can add file
+// happyAudio.src = "data:audio/mp3;base64,..."; // user can put an mp3 link
+playMusic.addEventListener('click', ()=>{
+  if(!happyAudio.src) {
+    // simple fallback: use WebAudio to play a short melody
+    playMelody();
+    return;
+  }
+  if(happyAudio.paused) { happyAudio.play(); playMusic.textContent = '⏸️ Pause'; }
+  else { happyAudio.pause(); playMusic.textContent = '▶️ Play'; }
+});
+
+confettiToggle.addEventListener('click', ()=>{
+  confettiEnabled = !confettiEnabled;
+  confettiToggle.style.opacity = confettiEnabled ? '1' : '0.55';
+});
+
+fireworkToggle.addEventListener('click', ()=>{
+  fireworkEnabled = !fireworkEnabled;
+  fireworkToggle.style.opacity = fireworkEnabled ? '1' : '0.55';
+});
+
+celebrateBtn.addEventListener('click', () => {
+  triggerCelebrate();
+});
+
+nameInput.addEventListener('input', (e)=>{
+  const v = e.target.value.trim();
+  nameTarget.textContent = v || 'Teman';
+});
+
+document.addEventListener('keydown', (e)=>{
+  if(e.key.toLowerCase() === 'r') triggerCelebrate();
+});
+
+/* ---------- celebrate sequence ---------- */
+function triggerCelebrate(){
+  if(confettiEnabled) spawnConfetti(140);
+  if(fireworkEnabled) {
+    // spawn a couple fireworks at random positions
+    spawnFirework(W * 0.3, H * 0.25 + Math.random()*80);
+    spawnFirework(W * 0.7, H * 0.18 + Math.random()*80);
+  }
+  // flicker the flame (small scale animation)
+  const flameEl = document.getElementById('flame');
+  flameEl.animate([{ transform: 'translateY(-50%) scale(1)' }, { transform: 'translateY(-52%) scale(1.08)' }, { transform: 'translateY(-50%) scale(1)'}], { duration: 600, iterations: 6 });
+}
+
+/* ---------- render loop draws fireworks on top of confetti canvas ---------- */
+function renderOverlay(){
+  // confetti loop cleared canvas already; we draw fireworks after confetti pieces have been drawn in confettiLoop
+  drawFireworks();
+  requestAnimationFrame(renderOverlay);
+}
+renderOverlay();
+
+/* ---------- tiny WebAudio melody if no audio source provided ---------- */
+function playMelody(){
+  try{
+    const ac = new (window.AudioContext || window.webkitAudioContext)();
+    const now = ac.currentTime;
+    const notes = [523.25, 523.25, 659.25, 523.25, 783.99]; // simple motif
+    let t = 0;
+    notes.forEach((freq, i) => {
+      const o = ac.createOscillator();
+      const g = ac.createGain();
+      o.type = 'sine';
+      o.frequency.value = freq;
+      g.gain.value = 0.0001;
+      o.connect(g); g.connect(ac.destination);
+      o.start(now + t);
+      g.gain.linearRampToValueAtTime(0.12, now + t + 0.01);
+      g.gain.linearRampToValueAtTime(0.0001, now + t + 0.34);
+      o.stop(now + t + 0.36);
+      t += 0.36;
+    });
+  }catch(err){
+    console.warn('Audio not available:', err);
+  }
+}
+
+/* ---------- small enhancement: accessibility focus and instruction ---------- */
+celebrateBtn.setAttribute('title', 'Tekan untuk merayakan: confetti & kembang api');
+confettiToggle.setAttribute('title', 'Toggle confetti');
+fireworkToggle.setAttribute('title', 'Toggle kembang api');
+
+</script>
+</body>
 </html>
