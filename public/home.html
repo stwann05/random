@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vita Setiyani Birthday</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+    <!-- Background Animated Gradient -->
+    <div class="bg-gradient"></div>
+
+    <!-- Fireworks -->
+    <canvas id="fireworkCanvas"></canvas>
+
+    <!-- Content -->
+    <div class="container">
+        <div class="card">
+            <h1 class="title">Selamat Ulang Tahun, Vita Setiyani!!!</h1>
+            <br>    
+            <p>
+                Hallo, Vita. Vita tahu nggak, 20 + 1 itu 21 loh. Iya, 21 wkwk.
+                <br>
+                Selamat ya, cantik 🥰 Maaf aku cuma bisa menyiapkan seperti ini hehe.
+                <br>
+                Aku doakan semoga semua urusan Vita diberi kemudahan dan diberi kekuatan untuk melewati semuanya ya. Aamiin.
+                <br>
+                Semangat ya, Manusia Cantik. Vita bisa karena Vita sendiri, dan itu sudah terbukti dari apa saja yang sudah Vita lewati. Keren lah pokoknya 👍🏻👍🏻
+                <br>
+                Proud of you ✨
+            </p>
+
+            
+        </div>
+
+      <div class="balloons" aria-hidden="true">
+        <!-- Balon 1–21 -->
+        <div class="balloon" data-num="1"></div>
+        <div class="balloon" data-num="2"></div>
+        <div class="balloon" data-num="3"></div>
+        <div class="balloon" data-num="4"></div>
+        <div class="balloon" data-num="5"></div>
+        <div class="balloon" data-num="6"></div>
+        <div class="balloon" data-num="7"></div>
+        <div class="balloon" data-num="8"></div>
+        <div class="balloon" data-num="9"></div>
+        <div class="balloon" data-num="10"></div>
+        <div class="balloon" data-num="11"></div>
+        <div class="balloon" data-num="12"></div>
+        <div class="balloon" data-num="13"></div>
+        <div class="balloon" data-num="14"></div>
+        <div class="balloon" data-num="15"></div>
+        <div class="balloon" data-num="16"></div>
+        <div class="balloon" data-num="17"></div>
+        <div class="balloon" data-num="18"></div>
+        <div class="balloon" data-num="19"></div>
+        <div class="balloon" data-num="20"></div>
+        <div class="balloon" data-num="21"></div>
+      </div>
+
+
+    <script>
+
+        // =========================
+        // FIREWORKS
+        // =========================
+        const fireCanvas = document.getElementById("fireworkCanvas");
+        const fctx = fireCanvas.getContext("2d");
+        fireCanvas.width = window.innerWidth;
+        fireCanvas.height = window.innerHeight;
+
+        let sparks = [];
+
+        function launchFirework() {
+            let x = Math.random() * fireCanvas.width;
+            let y = fireCanvas.height;
+            let targetY = Math.random() * (fireCanvas.height / 2);
+
+            const speed = 5;
+
+            let rocket = setInterval(() => {
+                fctx.clearRect(0, 0, fireCanvas.width, fireCanvas.height);
+                fctx.beginPath();
+                fctx.arc(x, y, 3, 0, Math.PI * 2);
+                fctx.fillStyle = "white";
+                fctx.fill();
+
+                y -= speed;
+
+                if (y <= targetY) {
+                    clearInterval(rocket);
+                    explodeFirework(x, y);
+                }
+            }, 16);
+        }
+
+        function explodeFirework(x, y) {
+            let colors = ['#ff4d4d', '#ff944d', '#ffff4d', '#4dff4d', '#4dffff', '#4d4dff', '#ff4dff'];
+
+            for (let i = 0; i < 50; i++) {
+                sparks.push({
+                    x: x,
+                    y: y,
+                    speedX: (Math.random() - 0.5) * 6,
+                    speedY: (Math.random() - 0.5) * 6,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    size: Math.random() * 3 + 2,
+                    alpha: 1
+                });
+            }
+        }
+
+        function animateSparks() {
+            fctx.clearRect(0, 0, fireCanvas.width, fireCanvas.height);
+            sparks.forEach((s, i) => {
+                s.x += s.speedX;
+                s.y += s.speedY;
+                s.alpha -= 0.02;
+
+                fctx.globalAlpha = s.alpha;
+                fctx.fillStyle = s.color;
+                fctx.beginPath();
+                fctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                fctx.fill();
+                fctx.globalAlpha = 1;
+
+                if (s.alpha <= 0) sparks.splice(i, 1);
+            });
+
+            requestAnimationFrame(animateSparks);
+        }
+        animateSparks();
+
+        // START SHOW
+        function startShow() {
+            setInterval(launchFirework, 900);
+
+            document.querySelector(".title").classList.add("glow");
+            document.querySelector(".card").classList.add("pop");
+
+            if (navigator.vibrate) navigator.vibrate([150, 80, 150]);
+        }
+    </script>
+</body>
+</html>
