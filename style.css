@@ -1,0 +1,191 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #0d0d0d;
+    overflow: hidden;
+}
+
+/* BALLOON WRAPPER */
+.balloons {
+  position: fixed;
+  right: 20px;
+  top: 0;
+  width: 250px;
+  height: 100vh;
+  pointer-events: none;
+}
+
+/* BLUE BALLOON */
+.balloon {
+  position: absolute;
+  width: 60px;
+  height: 80px;
+  background: linear-gradient(180deg, #5bb7ff, #0077ff);
+  border-radius: 50% 50% 45% 45%;
+  animation: floatUp 10s infinite ease-in-out;
+  box-shadow: 0 0 12px rgba(0, 132, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  opacity: 0; /* smooth fade */
+}
+
+/* STRING */
+.balloon::after {
+  content: '';
+  position: absolute;
+  bottom: -35px;
+  width: 2px;
+  height: 35px;
+  background: #0066cc;
+}
+
+/* NUMBER INSIDE BALLOON */
+.balloon::before {
+  content: attr(data-num);
+}
+
+/* FLOAT ANIMATION */
+@keyframes floatUp {
+  0% {
+    transform: translateY(110vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(40vh) translateX(-10px) rotate(5deg);
+  }
+  100% {
+    transform: translateY(-20vh) translateX(10px) rotate(-5deg);
+    opacity: 0;
+  }
+}
+
+/* RANDOM DELAY FOR 21 BALLOONS */
+.balloon:nth-child(1) { animation-delay: 0s; left: 10px; }
+.balloon:nth-child(2) { animation-delay: 0.5s; left: 40px; }
+.balloon:nth-child(3) { animation-delay: 1s; left: 80px; }
+.balloon:nth-child(4) { animation-delay: 1.5s; left: 120px; }
+.balloon:nth-child(5) { animation-delay: 2s; left: 30px; }
+.balloon:nth-child(6) { animation-delay: 2.5s; left: 70px; }
+.balloon:nth-child(7) { animation-delay: 3s; left: 110px; }
+.balloon:nth-child(8) { animation-delay: 3.5s; left: 20px; }
+.balloon:nth-child(9) { animation-delay: 4s; left: 90px; }
+.balloon:nth-child(10) { animation-delay: 4.5s; left: 50px; }
+.balloon:nth-child(11) { animation-delay: 5s; left: 100px; }
+.balloon:nth-child(12) { animation-delay: 5.5s; left: 30px; }
+.balloon:nth-child(13) { animation-delay: 6s; left: 60px; }
+.balloon:nth-child(14) { animation-delay: 6.5s; left: 120px; }
+.balloon:nth-child(15) { animation-delay: 7s; left: 40px; }
+.balloon:nth-child(16) { animation-delay: 7.5s; left: 90px; }
+.balloon:nth-child(17) { animation-delay: 8s; left: 10px; }
+.balloon:nth-child(18) { animation-delay: 8.5s; left: 130px; }
+.balloon:nth-child(19) { animation-delay: 9s; left: 60px; }
+.balloon:nth-child(20) { animation-delay: 9.5s; left: 100px; }
+.balloon:nth-child(21) { animation-delay: 10s; left: 20px; }
+
+/* BACKGROUND GRADIENT */
+.bg-gradient {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(120deg, #ff2d55, #8855ff, #00d4ff, #ffb300);
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+    z-index: -3;
+    filter: blur(60px);
+    opacity: 0.7;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+
+/* MAIN LAYOUT */
+.container {
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    position: relative;
+}
+
+/* CARD */
+.card {
+    margin-top: 18vh;
+    display: inline-block;
+    padding: 35px 45px;
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+    animation: fadeIn 2s ease forwards;
+    opacity: 0;
+}
+
+.card.pop {
+    animation: popUp 0.8s ease forwards;
+}
+
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes popUp {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.title {
+    font-size: 3rem;
+    color: #fff;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px #fff;
+}
+
+.title.glow {
+    animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 15px #fff; }
+    to { text-shadow: 0 0 40px #5ecbff, 0 0 80px #5ecbff; }
+}
+
+.subtitle {
+    color: #eee;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+/* BUTTON */
+.btn {
+    padding: 12px 28px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 40px;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 20px #5ecbff, 0 0 40px #00aaff;
+}
+
+/* FIREWORK CANVAS */
+#fireworkCanvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
