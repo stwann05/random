@@ -144,7 +144,7 @@ body {
 }
 
 .title {
-    font-size: 3rem;
+    font-size: 2rem;
     color: #fff;
     margin-bottom: 10px;
     text-shadow: 0 0 20px #fff;
@@ -165,23 +165,6 @@ body {
     font-size: 1.2rem;
 }
 
-/* BUTTON */
-.btn {
-    padding: 12px 28px;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 40px;
-    background: rgba(255,255,255,0.15);
-    color: white;
-    cursor: pointer;
-    backdrop-filter: blur(4px);
-    transition: 0.3s;
-}
-
-.btn:hover {
-    transform: scale(1.07);
-    box-shadow: 0 0 20px #5ecbff, 0 0 40px #00aaff;
-}
 
 /* FIREWORK CANVAS */
 #fireworkCanvas {
