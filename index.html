@@ -1,147 +1,104 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vita Setiyani Birthday</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Landing Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #0d0d0d;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Background blur warna */
+    .bg-gradient {
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(120deg, #ff2d55, #8855ff, #00d4ff, #ffb300);
+        background-size: 400% 400%;
+        animation: gradientMove 12s ease infinite;
+        z-index: -3;
+        filter: blur(60px);
+        opacity: 0.7;
+    }
+
+    @keyframes gradientMove {
+        0% { background-position: 0 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0 50%; }
+    }
+
+    /* Card */
+    .card {
+      padding: 40px 55px;
+      border-radius: 25px;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      text-align: center;
+      animation: fadeIn 2s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #fff;
+      margin-bottom: 18px;
+      text-shadow: 0 0 25px #fff;
+    }
+
+    p {
+      color: #e8e8e8;
+      margin-bottom: 28px;
+      font-size: 1.1rem;
+    }
+
+    /* Tombol tengah */
+    .btn {
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(180deg, #5bb7ff, #0077ff);
+      color: white;
+      box-shadow: 0 0 15px rgba(0, 132, 255, 0.5);
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 25px rgba(0, 132, 255, 0.8);
+    }
+  </style>
+</head>
 <body>
 
-    <!-- Background Animated Gradient -->
-    <div class="bg-gradient"></div>
+  <div class="bg-gradient"></div>
 
-    <!-- Fireworks -->
-    <canvas id="fireworkCanvas"></canvas>
+  <div class="card">
+    <h1>Selamat Datang Manusia Cantikk </h1>
+    <p>Hallo Vita Setiyani, Halaman berikutnya aku buat khusus buat Vita</p>
+    <button class="btn"><a href="home.html">Sentuh Akuu</a></Sentuh></button>
+  </div>
 
-    <!-- Content -->
-    <div class="container">
-        <div class="card">
-            <h1 class="title">Selamat Ulang Tahun, Vita Setiyani!!!</h1>
-            <br>    
-            <p>
-                Hallo, Vita. Vita tahu nggak, 20 + 1 itu 21 loh. Iya, 21 wkwk.
-                <br>
-                Selamat ya, cantik 🥰 Maaf aku cuma bisa menyiapkan seperti ini hehe.
-                <br>
-                Aku doakan semoga semua urusan Vita diberi kemudahan dan diberi kekuatan untuk melewati semuanya ya. Aamiin.
-                <br>
-                Semangat ya, Manusia Cantik. Vita bisa karena Vita sendiri, dan itu sudah terbukti dari apa saja yang sudah Vita lewati. Keren lah pokoknya 👍🏻👍🏻
-                <br>
-                Proud of you ✨
-            </p>
-
-            
-        </div>
-
-      <div class="balloons" aria-hidden="true">
-        <!-- Balon 1–21 -->
-        <div class="balloon" data-num="1"></div>
-        <div class="balloon" data-num="2"></div>
-        <div class="balloon" data-num="3"></div>
-        <div class="balloon" data-num="4"></div>
-        <div class="balloon" data-num="5"></div>
-        <div class="balloon" data-num="6"></div>
-        <div class="balloon" data-num="7"></div>
-        <div class="balloon" data-num="8"></div>
-        <div class="balloon" data-num="9"></div>
-        <div class="balloon" data-num="10"></div>
-        <div class="balloon" data-num="11"></div>
-        <div class="balloon" data-num="12"></div>
-        <div class="balloon" data-num="13"></div>
-        <div class="balloon" data-num="14"></div>
-        <div class="balloon" data-num="15"></div>
-        <div class="balloon" data-num="16"></div>
-        <div class="balloon" data-num="17"></div>
-        <div class="balloon" data-num="18"></div>
-        <div class="balloon" data-num="19"></div>
-        <div class="balloon" data-num="20"></div>
-        <div class="balloon" data-num="21"></div>
-      </div>
-
-
-    <script>
-
-        // =========================
-        // FIREWORKS
-        // =========================
-        const fireCanvas = document.getElementById("fireworkCanvas");
-        const fctx = fireCanvas.getContext("2d");
-        fireCanvas.width = window.innerWidth;
-        fireCanvas.height = window.innerHeight;
-
-        let sparks = [];
-
-        function launchFirework() {
-            let x = Math.random() * fireCanvas.width;
-            let y = fireCanvas.height;
-            let targetY = Math.random() * (fireCanvas.height / 2);
-
-            const speed = 5;
-
-            let rocket = setInterval(() => {
-                fctx.clearRect(0, 0, fireCanvas.width, fireCanvas.height);
-                fctx.beginPath();
-                fctx.arc(x, y, 3, 0, Math.PI * 2);
-                fctx.fillStyle = "white";
-                fctx.fill();
-
-                y -= speed;
-
-                if (y <= targetY) {
-                    clearInterval(rocket);
-                    explodeFirework(x, y);
-                }
-            }, 16);
-        }
-
-        function explodeFirework(x, y) {
-            let colors = ['#ff4d4d', '#ff944d', '#ffff4d', '#4dff4d', '#4dffff', '#4d4dff', '#ff4dff'];
-
-            for (let i = 0; i < 50; i++) {
-                sparks.push({
-                    x: x,
-                    y: y,
-                    speedX: (Math.random() - 0.5) * 6,
-                    speedY: (Math.random() - 0.5) * 6,
-                    color: colors[Math.floor(Math.random() * colors.length)],
-                    size: Math.random() * 3 + 2,
-                    alpha: 1
-                });
-            }
-        }
-
-        function animateSparks() {
-            fctx.clearRect(0, 0, fireCanvas.width, fireCanvas.height);
-            sparks.forEach((s, i) => {
-                s.x += s.speedX;
-                s.y += s.speedY;
-                s.alpha -= 0.02;
-
-                fctx.globalAlpha = s.alpha;
-                fctx.fillStyle = s.color;
-                fctx.beginPath();
-                fctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-                fctx.fill();
-                fctx.globalAlpha = 1;
-
-                if (s.alpha <= 0) sparks.splice(i, 1);
-            });
-
-            requestAnimationFrame(animateSparks);
-        }
-        animateSparks();
-
-        // START SHOW
-        function startShow() {
-            setInterval(launchFirework, 900);
-
-            document.querySelector(".title").classList.add("glow");
-            document.querySelector(".card").classList.add("pop");
-
-            if (navigator.vibrate) navigator.vibrate([150, 80, 150]);
-        }
-    </script>
 </body>
 </html>
