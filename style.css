@@ -27,7 +27,7 @@ body {
   height: 80px;
   background: linear-gradient(180deg, #5bb7ff, #0077ff);
   border-radius: 50% 50% 45% 45%;
-  animation: floatUp 10s infinite ease-in-out;
+  animation: floatUp 10s ease-in-out forwards; /* FIXED — tidak infinite */
   box-shadow: 0 0 12px rgba(0, 132, 255, 0.5);
   display: flex;
   justify-content: center;
@@ -35,7 +35,7 @@ body {
   font-size: 22px;
   font-weight: bold;
   color: white;
-  opacity: 0; /* smooth fade */
+  opacity: 0;
 }
 
 /* STRING */
@@ -144,7 +144,7 @@ body {
 }
 
 .title {
-    font-size: 2rem;
+    font-size: 1rem;
     color: #fff;
     margin-bottom: 10px;
     text-shadow: 0 0 20px #fff;
@@ -162,7 +162,7 @@ body {
 .subtitle {
     color: #eee;
     margin-bottom: 20px;
-    font-size: 1.2rem;
+    font-size: .7rem;
 }
 
 
